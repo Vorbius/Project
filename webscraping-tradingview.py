@@ -12,10 +12,30 @@ from bs4 import BeautifulSoup
 ##  > sudo "./Install Certificates.command"
 
 
-url = 'https://www.tradingview.com/markets/stocks-usa/market-movers-gainers/'
+url = 'https://www.webull.com/quote/us/gainers'
 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.3'}
 
 		
+req = Request(url, headers=headers)
+
+webpage= urlopen(req).read()
+
+soup = BeautifulSoup(webpage, 'html.parser')
+
+print(soup.title.text)
+
+stock_data=soup.find_all("div",attrs={"class":"table-cell"})
+num=1
+
+for i in range(5):
+    name=stock_data[num].text
+    change=stock_data[num+2].text
+    last_price=stock_data[num+3].text
+    num+=11
+    print(name)
+    print(change)
+    print(last_price)
+
 
 
 
